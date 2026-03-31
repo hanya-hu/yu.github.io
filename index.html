@@ -211,5 +211,203 @@ section{padding:100px 60px}
 </div>
 <div class="footer-decoration"><div class="footer-bamboo">竹</div></div>
 </footer>
+
+<!-- 萧萧智能小助手 -->
+<style>
+#xiaoxiao-btn{position:fixed;bottom:28px;right:28px;z-index:9999;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#2d1b4e,#C9A84C);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(201,168,76,.5);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:transform .3s,box-shadow .3s;font-size:1.6rem;animation:pulse-chat 3s infinite}
+#xiaoxiao-btn:hover{transform:scale(1.12);box-shadow:0 8px 30px rgba(201,168,76,.7)}
+@keyframes pulse-chat{0%,100%{box-shadow:0 4px 20px rgba(201,168,76,.5)}50%{box-shadow:0 4px 30px rgba(201,168,76,.9)}}
+#xiaoxiao-btn .btn-label{font-size:.5rem;color:#fff;letter-spacing:1px;margin-top:2px;font-family:'Noto Sans SC',sans-serif}
+#xiaoxiao-window{position:fixed;bottom:105px;right:28px;z-index:9998;width:360px;height:500px;background:#0d0d1a;border:1px solid rgba(201,168,76,.3);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden;font-family:'Noto Sans SC',sans-serif}
+#xiaoxiao-window.open{display:flex}
+#xx-header{background:linear-gradient(135deg,#1a1a35,#2d1b4e);padding:16px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0}
+#xx-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#8B6914);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+#xx-info{flex:1}
+#xx-name{color:#C9A84C;font-size:1rem;font-weight:600;letter-spacing:2px}
+#xx-status{color:rgba(255,255,255,.4);font-size:.72rem;letter-spacing:1px}
+#xx-close{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:1.2rem;padding:4px;transition:color .2s;flex-shrink:0}
+#xx-close:hover{color:#C9A84C}
+#xx-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+#xx-messages::-webkit-scrollbar{width:4px}
+#xx-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px}
+.xx-msg{max-width:82%;font-size:.88rem;line-height:1.65;animation:fadeInMsg .3s ease}
+@keyframes fadeInMsg{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.xx-msg.bot{align-self:flex-start}
+.xx-msg.bot .bubble{background:rgba(255,255,255,.07);color:rgba(255,255,255,.88);border-radius:4px 16px 16px 16px;padding:10px 14px;border:1px solid rgba(201,168,76,.15)}
+.xx-msg.user{align-self:flex-end}
+.xx-msg.user .bubble{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));color:#fff;border-radius:16px 4px 16px 16px;padding:10px 14px;border:1px solid rgba(201,168,76,.3)}
+.xx-msg .sender{font-size:.7rem;color:rgba(255,255,255,.3);margin-bottom:4px;letter-spacing:1px}
+#xx-suggestions{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.xx-sug{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:rgba(255,255,255,.7);border-radius:20px;padding:5px 12px;font-size:.75rem;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Noto Sans SC',sans-serif}
+.xx-sug:hover{background:rgba(201,168,76,.25);color:#fff;border-color:rgba(201,168,76,.6)}
+#xx-input-area{padding:12px 16px;border-top:1px solid rgba(201,168,76,.15);display:flex;gap:8px;flex-shrink:0;background:rgba(0,0,0,.2)}
+#xx-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);color:#fff;padding:9px 14px;border-radius:24px;font-size:.85rem;outline:none;font-family:'Noto Sans SC',sans-serif;transition:border-color .2s}
+#xx-input:focus{border-color:rgba(201,168,76,.6)}
+#xx-input::placeholder{color:rgba(255,255,255,.25)}
+#xx-send{background:linear-gradient(135deg,#C9A84C,#8B6914);border:none;color:#1a1a2e;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s}
+#xx-send:hover{opacity:.85}
+.xx-typing{display:flex;gap:4px;padding:10px 14px;background:rgba(255,255,255,.07);border-radius:4px 16px 16px 16px;border:1px solid rgba(201,168,76,.15);width:fit-content}
+.xx-typing span{width:6px;height:6px;background:#C9A84C;border-radius:50%;animation:typing .8s infinite}
+.xx-typing span:nth-child(2){animation-delay:.15s}
+.xx-typing span:nth-child(3){animation-delay:.3s}
+@keyframes typing{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+</style>
+
+<button id="xiaoxiao-btn" onclick="toggleXiaoxiao()" title="萧萧小助手">
+  🎵
+  <span class="btn-label">萧 萧</span>
+</button>
+
+<div id="xiaoxiao-window">
+  <div id="xx-header">
+    <div id="xx-avatar">🎋</div>
+    <div id="xx-info">
+      <div id="xx-name">萧 萧</div>
+      <div id="xx-status">喻晓庆老师的智能助手 · 在线</div>
+    </div>
+    <button id="xx-close" onclick="toggleXiaoxiao()">✕</button>
+  </div>
+  <div id="xx-messages"></div>
+  <div id="xx-suggestions">
+    <button class="xx-sug" onclick="xxAsk('竹笛是什么乐器？')">🎵 竹笛介绍</button>
+    <button class="xx-sug" onclick="xxAsk('箫和笛子有什么区别？')">🎶 笛萧区别</button>
+    <button class="xx-sug" onclick="xxAsk('喻晓庆老师是谁？')">👩‍🎤 喻老师介绍</button>
+    <button class="xx-sug" onclick="xxAsk('如何预约演出？')">📅 预约演出</button>
+  </div>
+  <div id="xx-input-area">
+    <input id="xx-input" type="text" placeholder="问问萧萧..." onkeydown="if(event.key==='Enter')xxSend()" />
+    <button id="xx-send" onclick="xxSend()">➤</button>
+  </div>
+</div>
+
+<script>
+const xxKB = {
+  greeting: ["你好！我是萧萧，喻晓庆老师的智能小助手🎋\n\n我可以介绍竹笛和箫的知识，也可以告诉你关于喻老师的故事。请问你想了解什么？"],
+  
+  rules: [
+    {
+      keys: ['竹笛','笛子','笛','什么乐器'],
+      ans: "🎵 **竹笛**是中国最古老的民族乐器之一，距今已有7000多年历史！\n\n它由竹子制成，笛身开有吹孔、膜孔和六个音孔。演奏时横吹，音色清脆明亮、穿透力强。\n\n竹笛分为**曲笛**（音色圆润柔和，江南丝竹常用）和**梆笛**（音色高亢嘹亮，北方音乐常用）两大类。\n\n喻晓庆老师正是凭借精湛的笛艺，征服了世界各地的观众！🌏"
+    },
+    {
+      keys: ['箫','洞箫','尺八'],
+      ans: "🎶 **箫**（又称洞箫）是中国传统竖吹管乐器，以竹制成。\n\n与笛子横吹不同，箫是**竖着吹奏**的。音色深沉幽远、意境深邃，常用于独奏或丝竹乐合奏。\n\n箫的音色被誉为"天籁之音"，最善于表达含蓄、内敛的情感，是中国古典诗词意境的绝佳诠释。\n\n喻晓庆老师以箫声传递中国音乐之美，令无数听众如痴如醉😊"
+    },
+    {
+      keys: ['区别','笛萧','笛箫','不同','对比'],
+      ans: "🎵🎶 **笛子 vs 箫** 的主要区别：\n\n**演奏方式：**\n• 笛子：横吹\n• 箫：竖吹\n\n**音色特点：**\n• 笛子：清脆明亮、活泼欢快\n• 箫：低沉悠远、含蓄深情\n\n**制作材料：**\n• 笛子：多用紫竹、苦竹\n• 箫：多用九节紫竹\n\n**常见场合：**\n• 笛子：民间歌舞、戏曲、合奏\n• 箫：文人雅集、禅意音乐、独奏\n\n喻晓庆老师两者皆精，堪称笛箫双绝！✨"
+    },
+    {
+      keys: ['喻晓庆','喻老师','老师','演奏家','她是谁','介绍'],
+      ans: "👩‍🎤 **喻晓庆**老师是中国著名笛箫演奏家！\n\n• 🎓 2001年毕业于**中国音乐学院**\n• 🎭 **中国歌剧舞剧院**民族乐团独奏演员\n• 🌏 演出足迹遍布**30多个国家和地区**\n• 🏠 现居美国**硅谷**，持续活跃于国际舞台\n\n她以精湛技艺和深厚艺术修养，成为国内外最活跃的民乐演奏家之一，是中西文化交流的音乐使者🎵\n\n想了解更多可以向上滚动查看网站详情！"
+    },
+    {
+      keys: ['预约','演出','邀请','booking','联系','contact'],
+      ans: "📅 想邀请喻晓庆老师演出？\n\n请滚动到网页底部的**「预约演出」**板块，填写演出邀请表单，包括：\n\n• 您的姓名\n• 联系邮件\n• 演出类型\n• 演出详情\n\n喻老师目前定居**美国加州硅谷**，欢迎来自世界各地的演出邀请！🌏\n\n也可以点击导航栏的「联系」快速跳转📩"
+    },
+    {
+      keys: ['历史','起源','多少年','古老'],
+      ans: "📜 笛子和箫的历史相当悠久！\n\n**竹笛历史：**距今约7000年，浙江河姆渡遗址出土了骨笛，是迄今发现的最古老管乐器之一。\n\n**箫的历史：**也有2000多年历史，秦汉时期已广泛流行，古诗文中常见"洞箫"的描述。\n\n这两种乐器伴随着中华文明的发展，见证了无数历史时刻，流传至今仍焕发着勃勃生机🌿"
+    },
+    {
+      keys: ['学习','入门','初学','怎么学','学笛','学箫'],
+      ans: "🎓 想学习笛子或箫？这里有一些建议：\n\n**入门建议：**\n1. 先选择适合自己的乐器（笛子音色明亮活泼，箫音色深沉含蓄）\n2. 找专业老师指导，建立正确的吹奏基础\n3. 从基础音阶和简单曲目开始\n4. 坚持每天练习，循序渐进\n\n**推荐曲目（入门）：**\n• 笛子：《小放牛》《扬鞭催马运粮忙》\n• 箫：《梅花三弄》《阳关三叠》\n\n音乐之路贵在坚持，加油！🎵"
+    },
+    {
+      keys: ['名曲','曲目','代表作','经典'],
+      ans: "🎵 中国笛箫经典名曲推荐：\n\n**竹笛名曲：**\n• 《春到湘江》— 抒情优美\n• 《牧民新歌》— 内蒙风情\n• 《姑苏行》— 典雅江南\n• 《帕米尔的春天》— 西域风情\n\n**箫的名曲：**\n• 《梅花三弄》— 文人气节\n• 《阳关三叠》— 送别情怀\n• 《平湖秋月》— 禅意悠远\n\n这些曲目都是中国传统音乐的瑰宝，建议一一欣赏🎶"
+    },
+    {
+      keys: ['你好','您好','hello','hi','嗨','哈喽'],
+      ans: "你好！很高兴认识你 😊\n\n我是萧萧，喻晓庆老师网站的智能小助手🎋\n\n我可以为您介绍：\n• 🎵 竹笛的历史与演奏\n• 🎶 箫的特点与文化\n• 👩‍🎤 喻晓庆老师的艺术经历\n• 📅 演出预约方式\n\n请问您想了解哪方面呢？"
+    },
+    {
+      keys: ['谢谢','感谢','thank','好的','明白','懂了'],
+      ans: "不客气，这是我应该做的！😊\n\n如果还有任何问题，随时可以问萧萧哦🎋\n\n希望您喜欢这个网站，也欢迎多了解喻晓庆老师的精彩演奏世界！🎵"
+    },
+    {
+      keys: ['材料','竹子','制作','做的'],
+      ans: "🎍 竹笛和箫的制作材料：\n\n**竹笛常用竹材：**\n• 紫竹：色泽深紫，音色圆润\n• 苦竹：质地坚硬，发音清亮\n• 湘妃竹：纹理独特，名贵珍稀\n\n**箫的常用竹材：**\n• 九节紫竹：最传统的箫材，以九节为佳\n• 白竹：音色清亮，价格亲民\n\n一支好的竹笛或箫，选材、晾晒、制作往往需要数年时间，匠心独具！🎋"
+    }
+  ],
+  
+  fallback: [
+    "这是个好问题！关于这方面，萧萧还在学习中😊\n\n不如换个问题试试？比如可以问我：\n• 竹笛和箫的区别\n• 喻晓庆老师的介绍\n• 如何预约演出",
+    "萧萧暂时不太了解这个问题呢🎋\n\n您可以通过网页底部的联系表单直接咨询，或者问我关于笛箫音乐和喻老师的问题哦！",
+    "嗯...这个问题有点难住萧萧了😅\n\n但我对笛箫音乐和喻晓庆老师可是很熟悉的！要不换个话题？"
+  ]
+};
+
+let xxOpen = false;
+let xxInited = false;
+let xxFallbackIdx = 0;
+
+function toggleXiaoxiao() {
+  xxOpen = !xxOpen;
+  const win = document.getElementById('xiaoxiao-window');
+  win.classList.toggle('open', xxOpen);
+  if (xxOpen && !xxInited) {
+    xxInited = true;
+    setTimeout(() => xxAddBotMsg(xxKB.greeting[0]), 400);
+  }
+  if (xxOpen) {
+    setTimeout(() => document.getElementById('xx-input').focus(), 300);
+  }
+}
+
+function xxAddBotMsg(text) {
+  const msgs = document.getElementById('xx-messages');
+  // Show typing
+  const typing = document.createElement('div');
+  typing.className = 'xx-msg bot';
+  typing.innerHTML = '<div class="xx-typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+  
+  setTimeout(() => {
+    typing.remove();
+    const div = document.createElement('div');
+    div.className = 'xx-msg bot';
+    div.innerHTML = '<div class="sender">萧萧</div><div class="bubble">' + text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong style="color:#C9A84C">$1</strong>') + '</div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 900);
+}
+
+function xxAddUserMsg(text) {
+  const msgs = document.getElementById('xx-messages');
+  const div = document.createElement('div');
+  div.className = 'xx-msg user';
+  div.innerHTML = '<div class="sender" style="text-align:right">你</div><div class="bubble">' + text + '</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function xxGetAnswer(q) {
+  const lq = q.toLowerCase();
+  for (const rule of xxKB.rules) {
+    if (rule.keys.some(k => lq.includes(k))) {
+      return rule.ans;
+    }
+  }
+  const ans = xxKB.fallback[xxFallbackIdx % xxKB.fallback.length];
+  xxFallbackIdx++;
+  return ans;
+}
+
+function xxAsk(q) {
+  xxAddUserMsg(q);
+  xxAddBotMsg(xxGetAnswer(q));
+}
+
+function xxSend() {
+  const input = document.getElementById('xx-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  xxAddUserMsg(text);
+  xxAddBotMsg(xxGetAnswer(text));
+}
+</script>
 </body>
   </html>
