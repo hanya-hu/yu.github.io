@@ -94,6 +94,26 @@ section{padding:100px 60px}
 .footer-copy{color:rgba(255,255,255,.2);font-size:.8rem;letter-spacing:2px}
 .footer-bamboo{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:'Noto Serif SC',serif;font-size:8rem;color:rgba(255,255,255,.02);font-weight:900}
 @media(max-width:900px){.about-content{grid-template-columns:1fr}.achievements-grid{grid-template-columns:1fr 1fr}.instruments-showcase{grid-template-columns:1fr}.contact-content{grid-template-columns:1fr}section{padding:70px 30px}.navbar{padding:16px 24px}.nav-links{gap:20px}}
+
+/* Albums Section */
+.albums-section { padding: 80px 0; background: #0d0a1e; }
+.albums-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
+.album-card { background: linear-gradient(145deg, #1a1530, #211c3a); border: 1px solid rgba(201,168,76,0.2); border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.album-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(201,168,76,0.25); border-color: rgba(201,168,76,0.5); }
+.album-cover { width: 100%; height: 180px; background: linear-gradient(135deg, #2a2040, #1a1530); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.album-cover-icon { font-size: 3.5rem; opacity: 0.6; }
+.album-year-badge { position: absolute; top: 10px; right: 10px; background: rgba(201,168,76,0.9); color: #0d0a1e; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+.album-info { padding: 20px; }
+.album-title { font-size: 1.1rem; color: #C9A84C; font-weight: 600; margin-bottom: 6px; font-family: "Noto Serif SC", serif; }
+.album-subtitle { font-size: 0.82rem; color: #b0a0d0; margin-bottom: 8px; line-height: 1.4; }
+.album-desc { font-size: 0.82rem; color: #8a7aaa; line-height: 1.5; margin-bottom: 14px; }
+.album-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.album-link { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+.album-link.apple { background: rgba(255,255,255,0.08); color: #e8e0f5; border: 1px solid rgba(255,255,255,0.15); }
+.album-link.apple:hover { background: rgba(255,255,255,0.15); }
+.album-link.search { background: rgba(201,168,76,0.12); color: #C9A84C; border: 1px solid rgba(201,168,76,0.3); }
+.album-link.search:hover { background: rgba(201,168,76,0.25); }
+
 </style>
 </head>
 <body>
@@ -102,6 +122,7 @@ section{padding:100px 60px}
 <div class="nav-brand">喻晓庆</div>
 <ul class="nav-links">
 <li><a href="#about">简介</a></li>
+<li><a href="#works">作品</a></li>
 <li><a href="#achievements">成就</a></li>
 <li><a href="#performances">演出</a></li>
 <li><a href="#contact">联系</a></li>
@@ -151,6 +172,110 @@ section{padding:100px 60px}
 <div class="achievement-card"><div class="achievement-icon">🌟</div><h3>文化使者</h3><p>在海外积极推广中国传统民乐，是中西方文化交流的重要桥梁，让世界听见中国之声。</p></div>
 </div>
 </section>
+
+<!-- Albums / Works Section -->
+<section id="works" class="albums-section">
+  <div class="container">
+    <h2 class="section-title">作品</h2>
+    <p style="text-align:center;color:#b0a0d0;margin-top:-10px;margin-bottom:10px;font-size:0.95rem;">喻晓庆主要专辑与录音作品，按年份排列</p>
+    <div class="albums-grid">
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);">
+          <span class="album-cover-icon">&#127908;</span>
+          <span class="album-year-badge">2021</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">中国音乐地图之听见国乐</div>
+          <div class="album-subtitle">笛、箫、尺八音乐集</div>
+          <div class="album-desc">收录喻晓庆与张笛、陈悦联袂演奏的竹笛与箫经典曲目，展现中国传统管乐之美。</div>
+          <div class="album-links">
+            <a class="album-link apple" href="https://music.apple.com/us/album/musical-map-of-china-hearing-chinese-traditional/1597558974" target="_blank" rel="noopener">&#127925; Apple Music</a>
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E4%B8%AD%E5%9B%BD%E9%9F%B3%E4%B9%90%E5%9C%B0%E5%9B%BE" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a0a2a,#2a1a4a);">
+          <span class="album-cover-icon">&#127913;</span>
+          <span class="album-year-badge">2020</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">乐界</div>
+          <div class="album-subtitle">喻晓庆 & 赵晓霞</div>
+          <div class="album-desc">笛箫演奏家喻晓庆与古琴演奏家赵晓霞合作录制，笛箫与古琴的对话，呈现中国传统室内乐之境。</div>
+          <div class="album-links">
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E4%B9%90%E7%95%8C" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a1a0a,#3a2a0a);">
+          <span class="album-cover-icon">&#127774;</span>
+          <span class="album-year-badge">2013</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">风华国韵 · 夏风</div>
+          <div class="album-subtitle">喻晓庆 个人专辑</div>
+          <div class="album-desc">喻晓庆个人原创笛箫专辑，以夏日清风为意象，融合竹笛、箫与古琴，清新脱俗，意境悠远。</div>
+          <div class="album-links">
+            <a class="album-link apple" href="https://music.apple.com/us/album/%E5%A4%8F%E9%A3%8E-%E9%A3%8E%E5%8D%8E%E5%9B%BD%E9%9F%B5%E7%B3%BB%E5%88%97/1580036395" target="_blank" rel="noopener">&#127925; Apple Music</a>
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E5%A4%8F%E9%A3%8E" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#0a1a2a,#0a2a3a);">
+          <span class="album-cover-icon">&#127753;</span>
+          <span class="album-year-badge">参与录制</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">三时</div>
+          <div class="album-subtitle">新世纪音乐 · 参与演奏</div>
+          <div class="album-desc">喻晓庆以主奏身份参与录制的中国New Age音乐大碟，笛箫与现代配器相融，广受好评。</div>
+          <div class="album-links">
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E4%B8%89%E6%97%B6" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a0a1a,#2a0a2a);">
+          <span class="album-cover-icon">&#127800;</span>
+          <span class="album-year-badge">参与录制</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">风轻云淡</div>
+          <div class="album-subtitle">佛教音乐 · 参与演奏</div>
+          <div class="album-desc">以禅意为核心的佛教音乐专辑，喻晓庆以箫声诠释空灵意境，超越尘嚣，引人入静。</div>
+          <div class="album-links">
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E9%A3%8E%E8%BD%BB%E4%BA%91%E6%B7%A1" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="album-card">
+        <div class="album-cover" style="background:linear-gradient(135deg,#1a0808,#3a1010);">
+          <span class="album-cover-icon">&#127914;</span>
+          <span class="album-year-badge">参与录制</span>
+        </div>
+        <div class="album-info">
+          <div class="album-title">虞美人</div>
+          <div class="album-subtitle">琴歌专辑 · 与古琴演奏家合作</div>
+          <div class="album-desc">古琴与笛箫的交融，以《虞美人》词意为线索，演绎历史长河中的幽思与情怀。</div>
+          <div class="album-links">
+            <a class="album-link search" href="https://music.apple.com/us/search?term=%E5%96%BB%E6%99%93%E5%BA%86+%E8%99%9E%E7%BE%8E%E4%BA%BA" target="_blank" rel="noopener">&#128269; 搜索</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="performances" class="performances-section">
 <div class="section-header">
 <span class="section-tag">演出风采</span>
